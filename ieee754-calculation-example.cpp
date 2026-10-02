@@ -25,10 +25,23 @@ uint8_t const bias = 127U;
  * Students should create or add any data structures needed.
  * Students should create or add any functions or classes they may need.
  */
-float ieee_754(uint32_t const data) {
-    uint32_t sign_bit = (data >> 31) & 0x1U;
-    uint32_t exponent_bits = (data >> 23) & 0xFFU;
-    uint32_t mantissa_bits = data & 0x7FFFFFU;
+float ieee_754(uint32_t const data) { 
+    uint32_t sign_bit = (data >> 31) & 0x1U; 
+    uint32_t exponent_bits = (data >> 23) & 0xFFU; 
+    uint32_t mantissa_bits = data & 0x7FFFFFU; 
+
+    float mantissa_value = (exponent_bits == 0U) ? 0.0f : 1.0f;
+    float fraction_value = 0.5f;
+
+    for (uint8_t i = 0; i < mantissa_width; i++) {
+        uint32_t mask = 1U << (mantissa_width - 1U - i);
+
+        if ((mantissa_bits & mask) != 0U) {
+            mantissa_value += fraction_value;
+        }
+
+        fraction_value *= 0.5f;
+    }
 
     float value = 1.23;
 
