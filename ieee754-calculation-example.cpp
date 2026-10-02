@@ -26,31 +26,11 @@ uint8_t const bias = 127U;
  * Students should create or add any functions or classes they may need.
  */
 float ieee_754(uint32_t const data) {
-    uint32_t const sign_bit = (data >> 31) & 0x1U;
-    uint32_t const exponent_bits = (data >> 23) & 0xFFU;
-    uint32_t const fraction_bits = data & 0x7FFFFFU;
-
-    float sign = sign_bit ? -1.0f : 1.0f;
-
-    if (exponent_bits == 0xFFU) {
-        if (fraction_bits == 0U) {
-            return sign * std::numeric_limits<float>::infinity();
-        }
-        return std::numeric_limits<float>::quiet_NaN();
-    }
-
-    if (exponent_bits == 0U) {
-        if (fraction_bits == 0U) {
-            return 0.0f * sign;
-        }
-
-        // Subnormal value: exponent = -126, mantissa = fraction / 2^23.
-        return sign * std::ldexp(static_cast<float>(fraction_bits), -149);
-    }
-
-    // Normalized value: (-1)^sign * 2^(exp - 127) * (1 + frac / 2^23)
-    float const mantissa = 1.0f + (static_cast<float>(fraction_bits) / static_cast<float>(1U << 23));
-    return sign * std::ldexp(mantissa, static_cast<int>(static_cast<int32_t>(exponent_bits) - 127));
+    float value;
+    // This will fail the tests. Students should do the proper IEEE-754 calculation per assignment
+    // using the 32 bit 'data' value passed into this function.
+    value = 1.23;
+    return value;
 }
 
 /*
