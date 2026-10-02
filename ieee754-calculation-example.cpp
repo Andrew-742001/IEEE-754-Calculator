@@ -26,13 +26,14 @@ uint8_t const bias = 127U;
  * Students should create or add any functions or classes they may need.
  */
 float ieee_754(uint32_t const data) {
-    float value;
-    // This will fail the tests. Students should do the proper IEEE-754 calculation per assignment
-    // using the 32 bit 'data' value passed into this function.
-    value = 1.23;
+    uint32_t sign_bit = (data >> 31) & 0x1U;
+    uint32_t exponent_bits = (data >> 23) & 0xFFU;
+    uint32_t mantissa_bits = data & 0x7FFFFFU;
+
+    float value = 1.23;
+
     return value;
 }
-
 /*
  * *** STUDENTS SHOULD NOT NEED TO CHANGE THE CODE BELOW. IT IS A CUSTOM TEST HARNESS. ***
  */
